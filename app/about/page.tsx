@@ -5,6 +5,7 @@ import { ArrowIcon } from 'components/icons';
 const AboutPage: NextPage = () => {
   return (
     <section>
+      {/* Add your custom about page content here */}
       <h1 className="font-bold text-3xl font-serif">About Me</h1>
       <p className="my-5 text-neutral-800 dark:text-neutral-200">
         Hello! I'm Gergely, a dynamic <b>business enthusiast</b> with a diverse skill set and a passion for leadership, management, and value creation.
@@ -48,3 +49,6 @@ export const metadata = {
 };
 
 export default AboutPage;
+
+// Add the empty export statement
+export {};
