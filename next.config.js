@@ -1,4 +1,3 @@
-const path = require('path');
 const { get } = require('@vercel/edge-config');
 const { withContentlayer } = require('next-contentlayer');
 
@@ -88,12 +87,3 @@ const securityHeaders = [
 ];
 
 module.exports = withContentlayer(nextConfig);
-
-module.exports = {
-  // ...
-  webpack: (config) => {
-    // Add alias for app directories
-    config.resolve.alias['app'] = path.join(__dirname, 'app');
-    return config;
-  },
-};
