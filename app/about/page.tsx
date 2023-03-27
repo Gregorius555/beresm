@@ -1,18 +1,8 @@
 import React from 'react';
+import { NextPage } from 'next';
 import { ArrowIcon } from 'components/icons';
 
-// Define your own Metadata type
-type Metadata = {
-  title: string;
-  description: string;
-};
-
-export const metadata: Metadata = {
-  title: 'About',
-  description: 'Business enthusiast',
-};
-
-const AboutPage: React.FC = () => {
+const AboutPage: NextPage = () => {
   return (
     <section>
       <h1 className="font-bold text-3xl font-serif">About Me</h1>
@@ -50,6 +40,11 @@ const AboutPage: React.FC = () => {
       </div>
     </section>
   );
+};
+
+export const metadata = {
+  title: 'About',
+  description: 'Business enthusiast',
 };
 
 export default AboutPage;
