@@ -8,6 +8,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.OAUTH_CLIENT_SECRET as string,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET as string, // Update this line
 };
 
 export default NextAuth(authOptions);
