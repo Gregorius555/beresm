@@ -34,7 +34,7 @@ const computedFields = {
       url: `https://beresm.com/blog/${doc._raw.flattenedPath}`,
       author: {
         '@type': 'Person',
-        name: 'Lee Robinson',
+        name: 'Gergely Béres-Molnár',
       },
     }),
   },
