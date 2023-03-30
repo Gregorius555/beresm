@@ -13,33 +13,24 @@ export default function AboutPage() {
     <section>
       <h1 className="font-bold text-3xl font-serif">About Me</h1>
       <p className="my-5 text-neutral-800 dark:text-neutral-200">
-        Hello! I'm Gergely, a dynamic <b>business enthusiast</b> with a diverse skill set 
-        and a passion for leadership, management, and value creation.
-      </p>
-      <p>
-        My experiences range from restructuring a <b>natural gas pricing</b> team during 
-        a merger to auditing Hungary's largest companies, always with a 
-        focus on driving success and innovation.
-      </p><br></br>
-      <hr /><br></br>
-      <p>
-        My interests span strategic planning, <b>business valuation</b>, stock exchange, 
-        hedge funds, and beyond. I pride myself on blending vision with emotional 
-        intelligence, fostering environments where teams can excel. By navigating 
-        change, making informed decisions, and communicating effectively, I connect 
-        deeply with others and create strong collaborative bonds.
+        Hi, I'm Gergely, a <b>business professional</b> with a diverse skill set and a 
+        passion for leadership, management, and value creation. 
       </p><br></br>
       <p>
-        Resilience, integrity, and continuous learning are the cornerstones of my 
-        leadership approach. I stay focused on <b>long-term goals</b>, act with honesty and 
-        transparency, and foster a culture that values growth and development, both for 
-        myself and my team.
+        I've worked in a variety of roles, including restructuring a natural gas pricing 
+        team during a merger and auditing Hungary's largest companies. I'm always looking 
+        for new challenges and opportunities to grow.
       </p><br></br>
       <p>
-        I invite you to <b>connect with me</b> and explore new opportunities together. 
-        Don't forget to check out my blog for insights into my passions and interests. 
-        Let's expand our professional networks and make a lasting impact on the world 
-        around us!
+        My interests include management, <b>business valuation</b>, data science, crypto, 
+        and more. I'm a strong communicator and problem solver, and I'm always willing to help 
+        others succeed. I'm also a resilient and innovative leader who is always looking for new 
+        ways to improve.
+      </p><br></br>
+      <p>
+      I'm always looking for new opportunities to connect with people and make a difference in 
+      the world. If you're interested in learning more about me or working with me, please don't 
+      hesitate to reach out.
       </p><br></br>
       <div className="flex flex-col gap-2 md:flex-row md:gap-2">
         <a
