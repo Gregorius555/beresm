@@ -15,7 +15,7 @@ export default function AboutPage() {
       <p className="my-5 text-neutral-800 dark:text-neutral-200">
         Hi, I'm Gergely, a <b>business professional</b> with a diverse skill set and a 
         passion for leadership, management, and value creation. 
-      </p><br></br>
+      </p>
       <p>
         I've worked in a variety of roles, including restructuring a natural gas pricing 
         team during a merger and auditing Hungary's largest companies. I'm always looking 
