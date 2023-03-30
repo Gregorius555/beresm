@@ -17,6 +17,7 @@ specifiers:
   dotenv: ^16.0.3
   encoding: ^0.1.13
   framer-motion: ^8.5.4
+  gray-matter: ^4.0.3
   kysely: ^0.23.4
   kysely-planetscale: ^1.2.1
   next: 13.2.5-canary.16
@@ -49,6 +50,7 @@ dependencies:
   dotenv: 16.0.3
   encoding: 0.1.13
   framer-motion: 8.5.4_biqbaboplfbrettd7655fr4n2y
+  gray-matter: 4.0.3
   kysely: 0.23.4
   kysely-planetscale: 1.2.1_3b4ga6arylazwmj6lzyyulo5vq
   next: 13.2.5-canary.16_biqbaboplfbrettd7655fr4n2y
