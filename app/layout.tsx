@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: 'Lee Robinson',
+    title: 'Gergely Béres-Molnár',
     card: 'summary_large_image',
   },
   icons: {
