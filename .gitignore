@@ -1,2 +1,5 @@
 .next
 .env.local
+.vercel
+.contentplayer
+.vscode
