@@ -6,6 +6,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log('Request method:', req.method);
+  console.log('Request body:', req.body);
+
   const session = await getSession({ req });
   if (!session || !session.user) {
     return res.status(403).send('Unauthorized');
@@ -15,26 +18,36 @@ export default async function handler(
   const name = session.user.name as string;
 
   if (req.method === 'POST') {
-    await queryBuilder
-      .insertInto('guestbook')
-      .values({
-        email,
-        content: (req.body.body || '').slice(0, 500),
-        created_by: name,
-      })
-      .execute();
+    try {
+      await queryBuilder
+        .insertInto('guestbook')
+        .values({
+          email,
+          content: (req.body.body || '').slice(0, 500),
+          created_by: name,
+        })
+        .execute();
 
-    return res.status(200).json({ error: null });
+      return res.status(200).json({ error: null });
+    } catch (error) {
+      console.error('POST error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
   }
 
   if (req.method === 'DELETE') {
-    await queryBuilder
-      .deleteFrom('guestbook')
-      .where('id', '=', req.body.id)
-      .where('email', '=', email)
-      .execute();
+    try {
+      await queryBuilder
+        .deleteFrom('guestbook')
+        .where('id', '=', req.body.id)
+        .where('email', '=', email)
+        .execute();
 
-    return res.status(204).json({});
+      return res.status(204).json({});
+    } catch (error) {
+      console.error('DELETE error:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
   }
 
   return res.send('Method not allowed.');
