@@ -36,6 +36,7 @@
 
      if (guestbookRes.status === 'fulfilled' && guestbookRes.value[0]) {
        entries = guestbookRes.value;
+       console.log(entries);
      } else {
        console.error(guestbookRes);
      }
