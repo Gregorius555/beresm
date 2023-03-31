@@ -1,13 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export default function Form() {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
-  const isMutating = isFetching || isPending;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -16,10 +14,14 @@ export default function Form() {
     const form = e.currentTarget;
     const input = form.elements.namedItem('entry') as HTMLInputElement;
 
+    const requestBody = {
+      content: input.value,
+    };
+
+    console.log('Request body:', requestBody);
+
     const res = await fetch('/api/guestbook', {
-      body: JSON.stringify({
-        content: input.value,
-      }),
+      body: JSON.stringify(requestBody),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,26 +29,23 @@ export default function Form() {
     });
 
     input.value = '';
-    const { error } = await res.json();
+    const jsonResponse = await res.json();
+    console.log('Response:', jsonResponse);
 
     setIsFetching(false);
-    startTransition(() => {
-      // Refresh the current route and fetch new data from the server without
-      // losing client-side browser or React state.
-      router.refresh();
-    });
+    router.replace(router.asPath);
   }
 
   return (
     <form
-      style={{ opacity: !isMutating ? 1 : 0.7 }}
+      style={{ opacity: !isFetching ? 1 : 0.7 }}
       className="relative max-w-[500px] text-sm"
       onSubmit={onSubmit}
     >
       <input
         aria-label="Your message"
         placeholder="Your message..."
-        disabled={isPending}
+        disabled={isFetching}
         name="entry"
         type="text"
         required
@@ -54,7 +53,7 @@ export default function Form() {
       />
       <button
         className="flex items-center justify-center absolute right-1 top-1 px-2 py-1 font-medium h-7 bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 rounded w-16"
-        disabled={isMutating}
+        disabled={isFetching}
         type="submit"
       >
         Sign
