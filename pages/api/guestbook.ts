@@ -15,17 +15,25 @@ export default async function handler(
   const name = session.user.name as string;
 
   if (req.method === 'POST') {
-    await queryBuilder
-      .insertInto('guestbook')
-      .values({
-        email,
-        content: (req.body.body || '').slice(0, 500),
-        created_by: name,
-      })
-      .execute();
-
-    return res.status(200).json({ error: null });
+    try {
+      const result = await queryBuilder
+        .insertInto('guestbook')
+        .values({
+          email,
+          content: (req.body.body || '').slice(0, 500),
+          created_by: name,
+        })
+        .execute();
+  
+      console.log('Insert result:', result);
+  
+      return res.status(200).json({ error: null });
+    } catch (error) {
+      console.error('Error inserting data:', error);
+      return res.status(500).json({ error: 'Failed to insert data.' });
+    }
   }
+  
 
   if (req.method === 'DELETE') {
     await queryBuilder
