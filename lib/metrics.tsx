@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { Octokit } from '@octokit/rest';
+
 import { queryBuilder } from 'lib/planetscale';
 import { cache } from 'react';
 
@@ -23,7 +23,7 @@ export async function getTweetCount() {
   }
 
   const response = await fetch(
-    `https://api.twitter.com/2/users/by/username/gregorius555?user.fields=public_metrics`,
+    `https://api.twitter.com/2/users/by/username/GergelyBeresM?user.fields=public_metrics`,
     {
       headers: {
         Authorization: `Bearer ${process.env.TWITTER_API_TOKEN}`,
@@ -32,21 +32,10 @@ export async function getTweetCount() {
   );
 
   const { data } = await response.json();
-  return Number(data.public_metrics.tweet_count);
+  return data?.public_metrics?.tweet_count ?? 0;
 }
 
-export const getStarCount = cache(async () => {
-  const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
-  });
 
-  const req = await octokit.request('GET /repos/{owner}/{repo}', {
-    owner: 'gregorius555',
-    repo: 'nextjs-portfolio',
-  });
-
-  return req.data.stargazers_count;
-});
 
 
 export async function getTotalBlogViews() {

@@ -1,20 +1,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { getBlogViews, getTweetCount } from 'lib/metrics';
 import {
   ArrowIcon,
+  TwitterIcon,
   ViewsIcon,
 } from 'components/icons';
 import { name, about, bio, avatar } from 'lib/info';
-import { getTotalBlogViews } from 'lib/metrics';
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  let views;
+  let views, tweetCount;
 
   try {
-    [views] = await Promise.all([
-      getTotalBlogViews(),
+    [views, tweetCount] = await Promise.all([
+      getBlogViews(),
+      getTweetCount(),
     ]);
   } catch (error) {
     console.error(error);
@@ -37,6 +39,15 @@ export default async function HomePage() {
           priority
         />
         <div className="mt-8 md:mt-0 ml-0 md:ml-6 space-y-2 text-neutral-500 dark:text-neutral-400">
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://twitter.com/GergelyBeresM"
+            className="flex items-center gap-2"
+          >
+            <TwitterIcon />
+            {`${tweetCount.toLocaleString()} tweets all time`}
+          </a>
           <Link href="/blog" className="flex items-center">
             <ViewsIcon />
             {`${views.toLocaleString()} blog views all time`}
