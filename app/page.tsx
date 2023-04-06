@@ -3,20 +3,18 @@ import Image from 'next/image';
 import {
   ArrowIcon,
   ViewsIcon,
-  TwitterIcon,
 } from 'components/icons';
 import { name, about, bio, avatar } from 'lib/info';
-import { getTweetCount, getBlogViews } from 'lib/metrics';
+import { getTotalBlogViews } from 'lib/metrics';
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  let tweetCount, views;
+  let views;
 
   try {
-    [tweetCount, views] = await Promise.all([
-      getTweetCount(),
-      getBlogViews(),
+    [views] = await Promise.all([
+      getTotalBlogViews(),
     ]);
   } catch (error) {
     console.error(error);
@@ -39,15 +37,6 @@ export default async function HomePage() {
           priority
         />
         <div className="mt-8 md:mt-0 ml-0 md:ml-6 space-y-2 text-neutral-500 dark:text-neutral-400">
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://twitter.com/GergelyBeresM"
-            className="flex items-center gap-2"
-          >
-            <TwitterIcon />
-            {`${tweetCount.toLocaleString()} tweets all time`}
-          </a>
           <Link href="/blog" className="flex items-center">
             <ViewsIcon />
             {`${views.toLocaleString()} blog views all time`}
@@ -78,17 +67,6 @@ export default async function HomePage() {
           >
             <ArrowIcon />
             <p className="h-7">connect with me on linkedin</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="mailto:gergely@beresm.com"
-          >
-            <ArrowIcon />
-            <p className="h-7">send me an email</p>
           </a>
         </li>
       </ul>
