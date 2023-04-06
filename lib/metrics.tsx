@@ -32,7 +32,7 @@ export async function getTweetCount() {
   );
 
   const { data } = await response.json();
-  return data?.public_metrics?.tweet_count ?? 0;
+  return Number(data.public_metrics.tweet_count);
 }
 
 
