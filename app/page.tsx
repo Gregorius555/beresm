@@ -1,22 +1,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getBlogViews, getTweetCount } from 'lib/metrics';
 import {
   ArrowIcon,
-  TwitterIcon,
   ViewsIcon,
+  TwitterIcon,
 } from 'components/icons';
 import { name, about, bio, avatar } from 'lib/info';
+import { getTweetCount, getBlogViews } from 'lib/metrics';
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  let views, tweetCount;
+  let tweetCount, views;
 
   try {
-    [views, tweetCount] = await Promise.all([
-      getBlogViews(),
+    [tweetCount, views] = await Promise.all([
       getTweetCount(),
+      getBlogViews(),
     ]);
   } catch (error) {
     console.error(error);
