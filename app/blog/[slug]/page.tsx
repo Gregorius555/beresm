@@ -5,6 +5,7 @@ import { allBlogs } from 'contentlayer/generated';
 import { getTweets } from 'lib/twitter';
 import Balancer from 'react-wrap-balancer';
 import ViewCounter from '../view-counter';
+import { Analytics } from '@vercel/analytics/react';
 
 export async function generateStaticParams() {
   return allBlogs.map((post) => ({
@@ -80,6 +81,7 @@ export default async function Blog({ params }) {
         <ViewCounter slug={post.slug} trackView />
       </div>
       <Mdx code={post.body.code} tweets={tweets} />
+      <Analytics />
     </section>
   );
 }

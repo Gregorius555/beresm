@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { allBlogs } from 'contentlayer/generated';
 import ViewCounter from './view-counter';
-import AnalyticsWrapper from 'components/AnalyticsWrapper';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -32,16 +32,7 @@ const BlogPage = () => {
             </div>
           </Link>
         ))}
+        <Analytics />
     </section>
   );
 }
-
-const WrappedBlogPage = () => {
-  return (
-    <AnalyticsWrapper>
-      <BlogPage />
-    </AnalyticsWrapper>
-  );
-};
-
-export default WrappedBlogPage;

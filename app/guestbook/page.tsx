@@ -4,7 +4,7 @@ import { SignIn, SignOut } from './actions';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import Form from './form';
-import AnalyticsWrapper from 'components/AnalyticsWrapper';
+import { Analytics } from '@vercel/analytics/react';
 
 async function getGuestbook() {
   const data = await queryBuilder
@@ -51,7 +51,6 @@ export default async function GuestbookPage() {
   }
 
   return (
-    <AnalyticsWrapper>
     <section>
       <h1 className="font-bold text-3xl font-serif mb-5">Guestbook</h1>
       {session?.user ? (
@@ -72,7 +71,7 @@ export default async function GuestbookPage() {
           </div>
         </div>
       ))}
+      <Analytics />
     </section>
-    </AnalyticsWrapper>
   );
 }
