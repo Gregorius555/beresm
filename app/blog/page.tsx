@@ -2,13 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { allBlogs } from 'contentlayer/generated';
 import ViewCounter from './view-counter';
+import AnalyticsWrapper from 'components/AnalyticsWrapper';
 
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Read my thoughts on business, management, and more.',
 };
 
-export default async function BlogPage() {
+const BlogPage = () => {
   return (
     <section>
       <h1 className="font-bold text-3xl font-serif mb-5">Blog</h1>
@@ -34,3 +35,13 @@ export default async function BlogPage() {
     </section>
   );
 }
+
+const WrappedBlogPage = () => {
+  return (
+    <AnalyticsWrapper>
+      <BlogPage />
+    </AnalyticsWrapper>
+  );
+};
+
+export default WrappedBlogPage;

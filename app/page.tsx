@@ -7,6 +7,7 @@ import {
 } from 'components/icons';
 import { name, about, bio, avatar } from 'lib/info';
 import { getTotalBlogViews, getTweetCount } from 'lib/metrics';
+import AnalyticsWrapper from 'components/AnalyticsWrapper';
 
 export const revalidate = 60;
 
@@ -24,6 +25,7 @@ export default async function HomePage() {
   
 
   return (
+    <AnalyticsWrapper>
     <section>
       <h1 className="font-bold text-3xl font-serif">{name}</h1>
       <p className="my-5 max-w-[460px] text-neutral-800 dark:text-neutral-200">
@@ -93,5 +95,6 @@ export default async function HomePage() {
         </li>
       </ul>
     </section>
+    </AnalyticsWrapper>
   );
 }

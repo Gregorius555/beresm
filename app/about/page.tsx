@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
-import {
-  ArrowIcon,
-} from 'components/icons';
+import { ArrowIcon } from 'components/icons';
+import AnalyticsWrapper from 'components/AnalyticsWrapper';
 
 export const metadata: Metadata = {
   title: 'About',
   description: 'Business enthusiast',
 };
 
-export default function AboutPage() {
+
+const AboutPage = () => {
   return (
     <section>
       <h1 className="font-bold text-3xl font-serif">About Me</h1>
@@ -46,3 +46,13 @@ export default function AboutPage() {
     </section>
   );
 }
+
+const WrappedAboutPage = () => {
+  return (
+    <AnalyticsWrapper>
+      <AboutPage />
+    </AnalyticsWrapper>
+  );
+};
+
+export default WrappedAboutPage;
