@@ -36,3 +36,5 @@ const BlogPage = () => {
     </section>
   );
 }
+
+export default BlogPage;
