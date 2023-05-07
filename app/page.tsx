@@ -47,7 +47,7 @@ export default async function HomePage() {
             className="flex items-center gap-2"
           >
             <TwitterIcon />
-            {`16 tweets all time`} {/* Add this line */}
+            {`23 tweets all time`} {/* Add this line */}
           </a>
           <Link href="/blog" className="flex items-center">
             <ViewsIcon />
@@ -86,7 +86,7 @@ export default async function HomePage() {
             className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
             rel="noopener noreferrer"
             target="_blank"
-            href="mailto:gergely@beresm.com"
+            href="mailto:contact@beresm.com"
           >
             <ArrowIcon />
             <p className="h-7">send me an email</p>
