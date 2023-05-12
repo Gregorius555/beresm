@@ -75,17 +75,6 @@ export default async function HomePage() {
             className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
             rel="noopener noreferrer"
             target="_blank"
-            href="https://www.linkedin.com/in/gregbm/"
-          >
-            <ArrowIcon />
-            <p className="h-7">connect with me on linkedin</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
-            rel="noopener noreferrer"
-            target="_blank"
             href="mailto:contact@beresm.com"
           >
             <ArrowIcon />

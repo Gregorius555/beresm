@@ -33,7 +33,7 @@ const AboutPage = () => {
       hesitate to reach out.
       </p><br></br>
       <div className="flex flex-col gap-2 md:flex-row md:gap-2">
-        <a
+        {/*<a
           className="flex items-center text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
           rel="noopener noreferrer"
           target="_blank"
@@ -41,7 +41,7 @@ const AboutPage = () => {
         >
           <ArrowIcon />
           <p className="h-7">connect with me on linkedin</p>
-        </a>
+        </a>*/}
       </div>
     </section>
   );
