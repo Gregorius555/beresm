@@ -47,7 +47,7 @@ export default async function HomePage() {
             className="flex items-center gap-2"
           >
             <TwitterIcon />
-            {`26 tweets all time`} {/* Add this line */}
+            {`34 tweets all time`} {/* Add this line */}
           </a>
           <Link href="/blog" className="flex items-center">
             <ViewsIcon />
