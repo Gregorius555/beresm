@@ -35,7 +35,7 @@ const AboutPage = () => {
       <div className="flex flex-col gap-2 md:flex-row md:gap-2">
         {/*<a
           className="flex items-center text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-all"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer" 
           target="_blank"
           href="https://www.linkedin.com/in/gregbm/"
         >
