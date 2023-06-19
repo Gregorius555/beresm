@@ -2,20 +2,22 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   ArrowIcon,
+  GitHubIcon,
   ViewsIcon,
   TwitterIcon,
 } from 'components/icons';
 import { name, about, bio, avatar } from 'lib/info';
-import { getTotalBlogViews, getTweetCount } from 'lib/metrics';
+import { getTotalBlogViews, getRepoCount, getTweetCount } from 'lib/metrics';
 import { Analytics } from '@vercel/analytics/react';
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  let views, tweetCount;
+  let repoCount, views, tweetCount;
 
   try {
     [views, tweetCount] = await Promise.all([
+      getRepoCount(),
       getTotalBlogViews(),
       getTweetCount(),
     ]);
@@ -49,6 +51,16 @@ export default async function HomePage() {
             <TwitterIcon />
             {`${tweetCount.toLocaleString()} tweets all time`} {/* Add this line */}
           </a>
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://github.com/leerob"
+            className="flex items-center gap-2"
+          >
+            <GitHubIcon />
+            {`${repoCount.toLocaleString()} repos all time`}
+          </a>
+          <Link href="/blog" className="flex items-center"></Link>
           <Link href="/blog" className="flex items-center">
             <ViewsIcon />
             {`${views.toLocaleString()} blog views all time`}

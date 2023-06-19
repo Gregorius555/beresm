@@ -1,5 +1,6 @@
 import 'server-only';
 
+import { Octokit } from '@octokit/rest';
 import { queryBuilder } from 'lib/planetscale';
 import { cache } from 'react';
 
@@ -66,3 +67,20 @@ export async function getTotalBlogViews() {
     return 0;
   }
 }
+
+export const getRepoCount = cache(async () => {
+  try {
+    const octokit = new Octokit({
+      auth: process.env.GITHUB_TOKEN,
+    });
+
+    const req = await octokit.request('GET /users/{username}/repos', {
+      username: 'Gregorius555', // replace with your GitHub username
+    });
+
+    return req.data.length; // length of the array is the number of repositories
+  } catch (error) {
+    console.error("Error fetching repository count", error);
+    return null; // or some default value
+  }
+});
