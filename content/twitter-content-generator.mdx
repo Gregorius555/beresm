@@ -1,0 +1,263 @@
+---
+title: Building a Twitter Content Generator with Python, Tweepy, OpenAI, and RSS Feeds
+publishedAt: '2023-06-19'
+summary: Learn how to create a Twitter bot that fetches content from multiple sources, paraphrases the content using OpenAI's GPT-3, and posts the generated content to keep your Twitter account engaging and up-to-date.
+---
+
+Our social media presence plays a significant role in our personal and business brand. Managing social media accounts, particularly Twitter, can be time-consuming. Automating this process can free up time and help maintain an active online presence.
+
+In this tutorial, we'll create a Python script that:
+
+- Connects to popular Twitter accounts using their RSS feeds with **nitter**
+- Extracts, processes, and paraphrases tweets using **OpenAI's GPT-3**
+- Automates posting the generated content to a Twitter account using **Tweepy**
+
+This tool will help you create relevant and interesting content for your Twitter account while showcasing your knowledge in Python programming, Artificial Intelligence (AI), and data science.
+
+<Image
+  alt={`Python and Twitter logos`}
+  src={`/images/twitter-content-generator/twitter-python-ai-banner.png`}
+  width={1400}
+  height={580}
+  priority
+/>
+
+## Getting Started
+
+Before writing the code, let's understand the libraries and APIs involved in the script:
+
+- [Tweepy](https://www.tweepy.org/): An easy-to-use Python library for accessing the Twitter API.
+- [feedparser](https://feedparser.readthedocs.io/en/latest/): A Python library for parsing RSS and Atom feeds.
+- [OpenAI API](https://beta.openai.com/docs/): An API that provides access to GPT-3, a state-of-the-art language model for generating human-like text.
+- [nitter](https://github.com/zedeus/nitter): A lightweight and privacy-friendly alternative Twitter front-end.
+
+Before diving into the code, make sure to install the required packages using `pip`:
+
+```bash
+pip install tweepy feedparser openai
+
+# Save your packages to requirements.txt if needed
+pip freeze > requirements.txt
+```
+
+Next, you'll need two sets of API keys:
+
+1. [Create a Twitter Developer account](https://developer.twitter.com/en/apps) and apply for an API key and access token (including their secrets) for your newly-created Twitter app.
+
+2. [Sign up for an OpenAI account](https://beta.openai.com/signup) and obtain your API key.
+
+Make sure to keep your API keys and access tokens secure.
+
+## Authenticating with Twitter and OpenAI
+
+We'll start by importing the required libraries (`tweepy`, `feedparser`, `openai`, and `pickle`) and authenticating against the Twitter and OpenAI APIs using our API keys and access tokens.
+
+```python
+import tweepy
+import feedparser
+import openai
+import pickle
+
+# Twitter API Authentication
+consumer_key = 'your_consumer_key_here'
+consumer_secret = 'your_consumer_secret_here'
+access_token = 'your_access_token_here'
+access_token_secret = 'your_access_token_secret_here'
+```
+
+Now, let's create a `tweepy.Client` instance to interact with the Twitter API:
+
+```python
+twitter_client = tweepy.Client(
+    consumer_key=consumer_key,
+    consumer_secret=consumer_secret,
+    access_token=access_token,
+    access_token_secret=access_token_secret
+)
+```
+
+<Image
+  alt={`Twitter Developer Portal`}
+  src={`/images/twitter-content-generator/twitter-developer-portal.png`}
+  width={2880 / 2}
+  height={1502 / 2}
+  priority
+/>
+
+Next, we'll authenticate with the OpenAI API:
+
+```python
+openai.api_key = 'your_openai_api_key_here'
+```
+
+## Fetching and Storing the Latest Tweets
+
+We need to define a list of popular Twitter accounts that we'll be monitoring for new tweets. We'll use the nitter.net URLs to fetch the latest tweets as RSS feeds.
+
+```python
+rss_urls = [f'https://nitter.net/{user}/rss' for user in users]
+```
+
+We'll use the following two functions to save and load the list of parsed tweets, so we only fetch new tweets:
+
+```python
+def save_parsed_tweets(parsed_tweets):
+    with open('parsed_tweets.pkl', 'wb') as f:
+        pickle.dump(parsed_tweets, f)
+
+def load_parsed_tweets():
+    try:
+        with open('parsed_tweets.pkl', 'rb') as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return {user: None for user in users}
+```
+
+Let's load the previously parsed tweets:
+
+```python
+parsed_tweets = load_parsed_tweets()
+```
+
+## Paraphrasing Tweets with OpenAI's GPT-3
+
+The main step of our script is paraphrasing the tweets. We'll use OpenAI's GPT-3 to create a new variant of the original tweet. Here's the `paraphrase` function that sends a prompt to GPT-3 with the latest tweet and requests a paraphrased version:
+
+```python
+def paraphrase(text):
+    response = openai.Completion.create(
+      engine="text-davinci-003",
+      prompt=f"{text}\n\nParaphrase as a tweet and include source:",
+      temperature=1,
+      max_tokens=80
+    )
+
+    return response.choices[0].text.strip()
+```
+
+## Main Loop
+
+In the main loop, we'll fetch the latest tweets from the RSS feeds, paraphrase them, and post the generated content to our Twitter account.
+
+```python
+for user, rss_url in zip(users, rss_urls):
+    # Fetch RSS feed
+    feed = feedparser.parse(rss_url)
+
+    # Check if there's a new tweet
+    if feed.entries:
+        newest_tweet = feed.entries[0]
+        tweet_id = newest_tweet.id
+
+        # If this is the first tweet we're fetching or there's a different tweet
+        if user not in parsed_tweets:
+            parsed_tweets[user] = None
+
+        if parsed_tweets[user] is None or tweet_id != parsed_tweets[user]:
+            parsed_tweets[user] = tweet_id
+
+            # Extract original tweet and handle case where ':' doesn't exist in the tweet
+            split_tweet = newest_tweet.title.split(': ', 1)
+            original_tweet = split_tweet[1] if len(split_tweet) > 1 else split_tweet[0]
+
+            paraphrased = paraphrase(original_tweet)
+
+            # Post paraphrased tweet to Twitter
+            try:
+                response = twitter_client.create_tweet(
+                    text=paraphrased
+                )
+                print(f"https://twitter.com/user/status/{response.data['id']}")
+            except Exception as e:
+                print(f"Error: {str(e)}")
+
+# Save the parsed tweets
+save_parsed_tweets(parsed_tweets)
+```
+## The Main Loop Breakdown
+
+The main loop iterates through a list of popular Twitter accounts and their corresponding RSS feed URLs. For each account, it performs the following steps:
+
+1. Fetch the latest tweets from the RSS feed
+2. Check if there's a new tweet
+3. Paraphrase the tweet using OpenAI's GPT-3
+4. Post the paraphrased tweet to the connected Twitter account
+
+Let's take a closer look at each step in the loop.
+
+### 1. Fetch the Latest Tweets from the RSS Feed
+
+The script uses the `feedparser` library to fetch the latest tweets from the provided RSS feed URLs. In each iteration of the main loop, we fetch the RSS feed corresponding to the current user:
+
+```python
+feed = feedparser.parse(rss_url)
+```
+
+`feedparser.parse()` is a function that takes a URL as an argument, fetches the RSS feed, and returns a dictionary-like object with data parsed from the feed.
+
+### 2. Check if There's a New Tweet
+
+The script keeps track of the latest parsed tweets in the `parsed_tweets` dictionary. In the main loop, it checks whether the fetched feed has entries and whether the latest tweet is a new tweet or an already processed one:
+
+```python
+if feed.entries:
+    newest_tweet = feed.entries[0]
+    tweet_id = newest_tweet.id
+
+    if user not in parsed_tweets:
+        parsed_tweets[user] = None
+
+    if parsed_tweets[user] is None or tweet_id != parsed_tweets[user]:
+        # Process the new tweet
+```
+
+If there's a new tweet, we'll proceed to the next step: paraphrasing.
+
+### 3. Paraphrase the Tweet using OpenAI's GPT-3
+
+After identifying a new tweet, we need to paraphrase it using the `paraphrase` function defined earlier in the script. This function sends a prompt to GPT-3 with the latest tweet and requests a paraphrased version:
+
+```python
+paraphrased = paraphrase(original_tweet)
+```
+
+The `paraphrase` function sends a query to the OpenAI API with the following parameters:
+
+- `engine`: the GPT-3 engine variant to use, in this case, "text-davinci-003"
+- `prompt`: the text to paraphrase, followed by a newline and request for paraphrasing
+- `temperature`: the degree of randomness when generating text, with 1.0 being more creative and variable outputs
+- `max_tokens`: the maximum number of tokens (words) to return in the generated text
+
+### 4. Post the Paraphrased Tweet to the Connected Twitter Account
+
+With the paraphrased tweet generated using GPT-3, we can now post it to the connected Twitter account. The script utilizes the `tweepy.Client` instance we created earlier to interact with the Twitter API directly:
+
+```python
+response = twitter_client.create_tweet(
+    text=paraphrased
+)
+```
+
+The `create_tweet()` method sends a request to the Twitter API with the text of the paraphrased tweet. If successful, it will post the tweet and return the unique tweet ID, which we can use to generate the final tweet URL:
+
+```python
+print(f"https://twitter.com/user/status/{response.data['id']}")
+```
+
+In case an error occurs while posting the tweet (due to duplicate content, rate limits, etc.), the script will catch the exception and print the error message:
+
+```python
+except Exception as e:
+    print(f"Error: {str(e)}")
+```
+
+By using these steps in the main loop, our script fetches, paraphrases, and posts the latest tweets from our list of users, keeping the connected Twitter account engaging with fresh and relevant content.
+
+## Conclusion
+
+That's it! With this code, you created a Twitter bot that monitors a list of accounts for new tweets, paraphrases the content using OpenAI's GPT-3, and posts the result to your Twitter account.
+
+You can further enhance this script by fetching data from other sources (websites, APIs, etc.) or improve content generation by fine-tuning the GPT-3 API calls.
+
+GitHub: [View the code](https://github.com/Gregorius555/twitter-content-generator/)
+Demo: [Visit my Twitter account](https://twitter.com/GergelyBeresM)
