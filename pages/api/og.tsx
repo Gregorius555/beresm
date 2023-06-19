@@ -32,7 +32,7 @@ export default async function handler(req: NextRequest) {
             marginLeft: 190,
             marginRight: 190,
             display: 'flex',
-            fontSize: 130,
+            fontSize: 120,
             fontFamily: 'Kaisei Tokumin',
             letterSpacing: '-0.05em',
             fontStyle: 'normal',
