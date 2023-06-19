@@ -16,7 +16,7 @@ export default async function HomePage() {
   let repoCount, views, tweetCount;
 
   try {
-    [views, tweetCount] = await Promise.all([
+    [repoCount, views, tweetCount] = await Promise.all([
       getRepoCount(),
       getTotalBlogViews(),
       getTweetCount(),
@@ -54,7 +54,7 @@ export default async function HomePage() {
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href="https://github.com/leerob"
+            href="https://github.com/Gregorius555"
             className="flex items-center gap-2"
           >
             <GitHubIcon />
