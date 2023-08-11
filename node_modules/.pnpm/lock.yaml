@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@octokit/rest':
     specifier: ^19.0.7
@@ -11,8 +15,8 @@ dependencies:
     specifier: ^0.1.11
     version: 0.1.11(react@18.2.0)
   '@vercel/edge-config':
-    specifier: ^0.1.1
-    version: 0.1.1
+    specifier: ^0.1.11
+    version: 0.1.11
   '@vercel/og':
     specifier: ^0.0.27
     version: 0.0.27
@@ -47,7 +51,7 @@ dependencies:
     specifier: ^1.2.1
     version: 1.2.1(@planetscale/database@1.5.0)(kysely@0.23.4)
   next:
-    specifier: 13.3.0
+    specifier: ^13.3.0
     version: 13.3.0(@opentelemetry/api@1.1.0)(react-dom@18.2.0)(react@18.2.0)
   next-auth:
     specifier: ^4.19.0
@@ -1230,9 +1234,15 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@vercel/edge-config@0.1.1:
-    resolution: {integrity: sha512-HDl+12tzW2RHIu8Y804kXg2VpZ02KVb7Nqsa+e1AFoACXXMb+7TfjI1wR19tXoDIu5enQz1dbat40YMEgaH13Q==}
+  /@vercel/edge-config-fs@0.1.0:
+    resolution: {integrity: sha512-NRIBwfcS0bUoUbRWlNGetqjvLSwgYH/BqKqDN7vK1g32p7dN96k0712COgaz6VFizAm9b0g6IG6hR6+hc0KCPg==}
+    dev: false
+
+  /@vercel/edge-config@0.1.11:
+    resolution: {integrity: sha512-3UQsy6VqJ6LAls6YJpWtkxXSdj0pgZHOwikWtp3Mbk2qUkZRtZRQCTyIZyp6aqFqkuJxaCH7I7h3dhb82/EEdQ==}
     engines: {node: '>=14.6'}
+    dependencies:
+      '@vercel/edge-config-fs': 0.1.0
     dev: false
 
   /@vercel/og@0.0.27:
