@@ -19,7 +19,7 @@ const nextConfig = {
   },
   redirects() {
     try {
-      return get('redirects');
+      return get('redirects') || [];
     } catch {
       return [];
     }
