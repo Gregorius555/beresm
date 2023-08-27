@@ -19,8 +19,15 @@ const nextConfig = {
   },
   redirects() {
     try {
-      return get('redirects');
-    } catch {
+      const redirectsArray = get('redirects');
+      if (Array.isArray(redirectsArray)) {
+        return redirectsArray;
+      } else {
+        console.warn('Redirects from @vercel/edge-config are not in array format.');
+        return [];
+      }
+    } catch (error) {
+      console.error('Error fetching redirects:', error);
       return [];
     }
   },
@@ -33,6 +40,7 @@ const nextConfig = {
     ];
   },
 };
+
 
 // https://nextjs.org/docs/advanced-features/security-headers
 const ContentSecurityPolicy = `
