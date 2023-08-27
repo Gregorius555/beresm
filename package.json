@@ -6,7 +6,7 @@
     "build-only": "next build",
     "start": "next start",
     "setup": "node ./lib/setup.mjs"
-  }
+  },
   "dependencies": {
     "@planetscale/database": "^1.8.0",
     "@vercel/analytics": "^1.0.1",
