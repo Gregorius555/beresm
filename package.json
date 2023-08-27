@@ -4,7 +4,7 @@
     "dev": "next dev",
     "build": "npm run setup && next build",
     "build-only": "next build",
-    "start": "next start",
+    "start": "next start"
   },
   "dependencies": {
     "@planetscale/database": "^1.8.0",
