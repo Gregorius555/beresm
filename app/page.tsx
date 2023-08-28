@@ -58,7 +58,6 @@ export default function Page() {
             src={'/images/home/corvinus.jpg'}
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
             className="rounded-lg object-cover"
           />
         </div>
@@ -68,7 +67,6 @@ export default function Page() {
             src={'/images/home/mba.jpg'}
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
             className="rounded-lg object-cover object-[-16px] sm:object-center"
           />
         </div>
@@ -78,7 +76,6 @@ export default function Page() {
             src={'/images/home/travel.jpg'}
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
             className="rounded-lg object-cover object-top sm:object-center"
           />
         </div>
@@ -88,7 +85,6 @@ export default function Page() {
             src={`/images/home/meeting.jpg`}
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
             className="rounded-lg object-cover"
           />
         </div>
@@ -98,7 +94,6 @@ export default function Page() {
             src={'/images/home/portrait.jpg'}
             fill
             sizes="(max-width: 768px) 213px, 33vw"
-            priority
             className="rounded-lg object-cover"
           />
         </div>
@@ -108,7 +103,6 @@ export default function Page() {
             src={'/images/home/diploma.jpg'}
             fill
             sizes="(min-width: 768px) 213px, 33vw"
-            priority
             className="rounded-lg object-cover"
           />
         </div>
